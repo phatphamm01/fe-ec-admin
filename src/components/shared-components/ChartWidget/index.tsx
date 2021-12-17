@@ -6,7 +6,7 @@ import {
   apexLineChartDefaultOption,
   apexBarChartDefaultOption,
   apexAreaChartDefaultOption,
-} from "src/constants/ChartConstant";
+} from "@common/constants/ChartConstant";
 import ReactResizeDetector from "react-resize-detector";
 
 const titleStyle = {

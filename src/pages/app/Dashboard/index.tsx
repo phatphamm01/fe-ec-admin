@@ -25,7 +25,7 @@ import ApexChart from "react-apexcharts";
 import {
   apexLineChartDefaultOption,
   COLOR_2,
-} from "src/constants/ChartConstant";
+} from "@common/constants/ChartConstant";
 import {
   UserAddOutlined,
   FileExcelOutlined,
