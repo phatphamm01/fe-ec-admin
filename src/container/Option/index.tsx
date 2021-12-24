@@ -54,18 +54,20 @@ const User = () => {
   }, [allOption]);
 
   useEffect(() => {
+    console.log(date);
+
     if (date) {
       getOptionsByTimeApi();
     }
   }, [date]);
 
   useEffect(() => {
-    if (allOptionByTime.length > 0) {
+    if (date) {
       setList(allOptionByTime);
     } else {
       setList(allOption);
     }
-  }, [allOption, allOptionByTime]);
+  }, [date]);
 
   const getAllUserApi = () => {
     dispatch(getAllOption());
@@ -156,7 +158,7 @@ const User = () => {
         setIsEdit(false);
         return;
       }
-      debugger;
+
       await fetchOption.addOption(payload);
       message.success("Thêm thành công");
 
@@ -172,6 +174,11 @@ const User = () => {
   };
 
   const handleShowDate = (value: any) => {
+    if (!value) {
+      setDate(null);
+      return;
+    }
+
     let date = moment(value);
     const payload = {
       date: date.get("date"),
@@ -211,7 +218,7 @@ const User = () => {
 
       <div className="table-responsive">
         <Table
-          loading={checkNullObject(list)}
+          loading={checkNullObject(allOption)}
           columns={tableColumns}
           dataSource={list}
           rowKey="_id"
