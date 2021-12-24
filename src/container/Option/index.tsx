@@ -218,24 +218,26 @@ const User = () => {
         />
       </div>
       <Modal
-        title="Basic Modal"
+        title={isEdit ? "Chỉnh sửa" : "Thêm mới"}
         visible={visible}
         onOk={handleOk}
         onCancel={handleCancel}
       >
         <Row gutter={[0, 16]}>
-          <Col span={24}>
-            <span tw="pb-1 pl-2 font-medium">Thời hạn</span>
-            <Input
-              tw="w-full"
-              title="Thời hạn"
-              value={optionInput}
-              onChange={(e) => {
-                setOptionInput(e.target.value);
-              }}
-              placeholder="Nhập thời hạn"
-            />
-          </Col>
+          {!isEdit && (
+            <Col span={24}>
+              <span tw="pb-1 pl-2 font-medium">Thời hạn</span>
+              <Input
+                tw="w-full"
+                title="Thời hạn"
+                value={optionInput}
+                onChange={(e) => {
+                  setOptionInput(e.target.value);
+                }}
+                placeholder="Nhập thời hạn"
+              />
+            </Col>
+          )}
           <Col span={24}>
             <span tw="pb-1 pl-2 font-medium">Lãi suất</span>
             <Input
