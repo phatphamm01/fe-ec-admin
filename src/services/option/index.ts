@@ -2,9 +2,9 @@ import AxiosService from "@common/utils/axios";
 
 const url = {
   getCurrentOptions: (payload: any) => "option/getcurrentoption",
-  getOptionsByTime: (date: any) =>
-    `option/${date.getDate}-${date.getMonth}-${date.getFullYear}`,
-  editOption: (_id: any) => `option/updateOption/${_id}`,
+  getOptionsByTime: (payload: any) =>
+    `option/getoptionbydatetime/${payload.date}-${payload.month}-${payload.year}`,
+  editOption: (payload: any) => `option/updateOption/${payload.id}`,
   addOption: (payload: any) => "option/saveOption",
 };
 
@@ -18,17 +18,11 @@ const fetchOption = {
     return response;
   },
   async editOption(payload: any) {
-    const response = await AxiosService.put(
-      url.editOption(payload),
-      payload.data
-    );
+    const response = await AxiosService.put(url.editOption(payload), payload);
     return response;
   },
   async addOption(payload: any) {
-    const response = await AxiosService.post(
-      url.addOption(payload),
-      payload.data
-    );
+    const response = await AxiosService.post(url.addOption(payload), payload);
     return response;
   },
 };

@@ -1,38 +1,47 @@
+import { IPassbook } from "@redux/types/passbook";
 import { createSlice } from "@reduxjs/toolkit";
-import { IOption, IOptions } from "@redux/types/option";
 
-interface IOptionSlice {
-  option: IOption;
-  allOption: IOptions;
+interface IPassbookSlice {
+  allPassbook: IPassbook[];
+  passbookDetail: IPassbook;
+  passbookUser: IPassbook[];
 }
 
-const initialState: IOptionSlice = {
-  option: {},
-  allOption: [],
+const initialState: IPassbookSlice = {
+  passbookDetail: {},
+  allPassbook: [],
+  passbookUser: [],
 };
 
-const optionSlice = createSlice({
-  name: "option",
+const PassbookSlice = createSlice({
+  name: "passbook",
   initialState,
   reducers: {
-    getOption() {},
-    getOptionSuccess(state, action) {
-      state.option = action.payload;
+    getAllPassbooks() {},
+    getAllPassbooksSuccess(state, action) {
+      state.allPassbook = action.payload;
     },
 
-    getAllOption() {},
-    getAllOptionSuccess(state, action) {
-      state.allOption = action.payload;
+    getAllOfUser(state, action: any) {},
+    getAllOfUserSuccess(state, action) {
+      state.passbookUser = action.payload;
+    },
+
+    getPassbookDetail() {},
+    getPassbookDetailSuccess(state, action) {
+      state.passbookDetail = action.payload;
     },
   },
 });
 
 export const {
-  getOption,
-  getOptionSuccess,
-  getAllOption,
-  getAllOptionSuccess,
-} = optionSlice.actions;
+  getAllPassbooks,
+  getAllPassbooksSuccess,
+  getAllOfUser,
+  getAllOfUserSuccess,
+  getPassbookDetail,
+  getPassbookDetailSuccess,
+} = PassbookSlice.actions;
 
-const optionReducers = optionSlice.reducer;
-export default optionReducers;
+const passbookReducers = PassbookSlice.reducer;
+export default passbookReducers;

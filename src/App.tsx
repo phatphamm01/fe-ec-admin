@@ -1,5 +1,6 @@
+import "moment/locale/vi";
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import Pages from "./pages";
 
 const App: React.FC = () => {

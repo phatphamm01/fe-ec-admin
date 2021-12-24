@@ -1,8 +1,7 @@
-import { ReactChild } from "react";
 import {
+  BookOutlined,
   PieChartOutlined,
-  ShoppingCartOutlined,
-  AccountBookOutlined,
+  TagOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 
@@ -23,39 +22,24 @@ export const navList: INav[] = [
     submenu: [],
   },
   {
-    key: "product",
-    path: `product`,
-    title: "Product",
-    icon: AccountBookOutlined,
-    submenu: [
-      {
-        key: "product-list",
-        path: `product-list`,
-        title: "Product List",
-        icon: "",
-        submenu: [],
-      },
-      {
-        key: "product-add",
-        path: `product-add`,
-        title: "Add Product",
-        icon: "",
-        submenu: [],
-      },
-    ],
-  },
-  {
-    key: "order",
-    path: `order`,
-    title: "Order",
-    icon: ShoppingCartOutlined,
-    submenu: [],
-  },
-  {
     key: "user",
     path: `user`,
     title: "Users",
     icon: UserOutlined,
+    submenu: [],
+  },
+  {
+    key: "passbook",
+    path: `passbook`,
+    title: "Passbook",
+    icon: BookOutlined,
+    submenu: [],
+  },
+  {
+    key: "option",
+    path: `option`,
+    title: "Option",
+    icon: TagOutlined,
     submenu: [],
   },
 ];

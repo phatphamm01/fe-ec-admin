@@ -1,5 +1,5 @@
-import User from "@components/Users";
 import React from "react";
+import User from "src/container/Users";
 import tw, { styled } from "twin.macro";
 
 const UserContainer = styled.div`

@@ -6,7 +6,7 @@ const url = {
 
 const fetchUser = {
   async getAllUsers(payload: any) {
-    const response = await AxiosService.post(url.getAllUsers, payload);
+    const response = await AxiosService.get(url.getAllUsers, payload);
     return response;
   },
 };

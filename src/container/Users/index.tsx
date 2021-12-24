@@ -1,30 +1,39 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import { Card, Table, Input, Button, Avatar, message } from "antd";
-import { FileExcelOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  EyeOutlined,
+  SearchOutlined,
+  StarFilled,
+  StarOutlined,
+} from "@ant-design/icons";
+import checkNullObject from "@common/function/checkNullObject";
+import randomImage from "@common/utils/image/randomImage";
+import EllipsisDropdown from "@components/shared-components/EllipsisDropdown";
 import Flex from "@components/shared-components/Flex";
-import moment from "moment";
-import utils from "src/utils";
 import { useAppDispatch, useAppSelector } from "@hook/redux";
 import { getAllUser } from "@redux/slices/user";
-import { StarOutlined, StarFilled } from "@ant-design/icons";
-import fetchUser from "@services/user";
+import { Avatar, Card, Input, Menu, message, Table } from "antd";
+import React, { useEffect, useState } from "react";
+import NumberFormat from "react-number-format";
+import { useNavigate } from "react-router-dom";
+import utils from "src/utils";
+import { IUser } from "../../redux/types/user/index";
 
-const Orders = () => {
+const User = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { allUser, user } = useAppSelector((state) => state.userReducers);
 
   const [list, setList] = useState<any>();
 
   useEffect(() => {
-    getBillApi();
+    getAllUserApi();
   }, []);
 
   useEffect(() => {
     setList(allUser);
   }, [allUser]);
 
-  const getBillApi = () => {
+  const getAllUserApi = () => {
     dispatch(getAllUser());
   };
 
@@ -34,15 +43,11 @@ const Orders = () => {
       return;
     }
     try {
-      let payload = { id: id, data: { role: status } };
       let newList = list?.map((value: any) =>
         value._id === id ? { ...value, role: status } : value
       );
 
       setList(newList);
-
-      let response = await fetchUser.updateRole(payload);
-      console.log(response);
 
       message.success(`Change success`);
     } catch (error) {
@@ -56,24 +61,44 @@ const Orders = () => {
       dataIndex: "photo",
       render: (text: any, record: any) => (
         <div className="d-flex align-items-center">
-          <Avatar size={30} src={record.photo} />
+          <Avatar size={30} src={randomImage()} />
         </div>
       ),
     },
     {
-      title: "Last name",
-      dataIndex: "lname",
+      title: "Họ và tên",
+      dataIndex: "fullName",
       sorter: (a: any, b: any) => utils.antdTableSorter(a, b, "lname"),
     },
-    {
-      title: "Fist name",
-      dataIndex: "fname",
-      sorter: (a: any, b: any) => utils.antdTableSorter(a, b, "fname"),
-    },
+
     {
       title: "Email",
       dataIndex: "email",
       sorter: (a: any, b: any) => utils.antdTableSorter(a, b, "email"),
+    },
+    {
+      title: "Số điện thoại",
+      dataIndex: "phoneNumber",
+      sorter: (a: any, b: any) => utils.antdTableSorter(a, b, "phoneNumber"),
+    },
+    {
+      title: "Địa chỉ",
+      dataIndex: "address",
+      sorter: (a: any, b: any) => utils.antdTableSorter(a, b, "address"),
+    },
+    {
+      title: "Tiền (VND)",
+      dataIndex: "currentMoney",
+      render: (deposits: any) => (
+        <div>
+          <NumberFormat
+            displayType={"text"}
+            value={Math.round(deposits * 100) / 100}
+            thousandSeparator={true}
+          />
+        </div>
+      ),
+      sorter: (a: any, b: any) => utils.antdTableSorter(a, b, "currentMoney"),
     },
     {
       title: "Admin",
@@ -95,7 +120,33 @@ const Orders = () => {
       ),
       sorter: (a: any, b: any) => utils.antdTableSorter(a, b, "isFeatured"),
     },
+    {
+      title: "Hành động",
+      dataIndex: "actions",
+      render: (_: any, elm: any) => (
+        <div className="text-right">
+          <EllipsisDropdown menu={dropdownMenu(elm)} />
+        </div>
+      ),
+    },
   ];
+
+  const dropdownMenu = (row: IUser) => {
+    return (
+      <Menu>
+        <Menu.Item onClick={() => viewDetails(row)}>
+          <Flex alignItems="center">
+            <EyeOutlined />
+            <span className="ml-2">DS sổ tiết kiệm</span>
+          </Flex>
+        </Menu.Item>
+      </Menu>
+    );
+  };
+
+  const viewDetails = async (row: IUser) => {
+    navigate("/user/passbook/" + row._id);
+  };
 
   const onSearch = (e: any) => {
     const value = e.currentTarget.value;
@@ -118,10 +169,15 @@ const Orders = () => {
         </Flex>
       </Flex>
       <div className="table-responsive">
-        <Table columns={tableColumns} dataSource={list} rowKey="email" />
+        <Table
+          loading={checkNullObject(list)}
+          columns={tableColumns}
+          dataSource={list}
+          rowKey="email"
+        />
       </div>
     </Card>
   );
 };
 
-export default Orders;
+export default User;

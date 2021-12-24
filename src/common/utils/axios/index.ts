@@ -1,6 +1,6 @@
-import { IDataAxios, IResponseAxios } from "./interface";
 import handleError from "@common/utils/axios/handleError";
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosInstance } from "axios";
+import { IDataAxios, IResponseAxios } from "./interface";
 
 export type Method =
   | "get"
@@ -14,8 +14,7 @@ export type Method =
   | "link"
   | "unlink";
 
-axios.defaults.baseURL =
-  "http://summonapi-env.eba-gp3k32fe.ap-southeast-1.elasticbeanstalk.com/api/v1/";
+axios.defaults.baseURL = "https://server-one-kappa.vercel.app";
 
 class AxiosService {
   #instance: AxiosInstance;
@@ -43,13 +42,13 @@ class AxiosService {
     });
 
     instance.interceptors.response.use(
-      (response: AxiosResponse) => {
+      (response: any) => {
         return response;
       },
       (error: AxiosError) => {
         console.log(error.message);
 
-        if (error.message === "Request failed with status code 403") {
+        if (error.message === "Request failed with status code 401") {
           localStorage.clear();
           location.reload();
         }

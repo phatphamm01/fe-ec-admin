@@ -1,14 +1,14 @@
-import React from "react";
-import { Menu, Dropdown, Avatar } from "antd";
-import { connect } from "react-redux";
 import {
   EditOutlined,
+  LogoutOutlined,
+  QuestionCircleOutlined,
   SettingOutlined,
   ShopOutlined,
-  QuestionCircleOutlined,
-  LogoutOutlined,
 } from "@ant-design/icons";
+import randomImage from "@common/utils/image/randomImage";
 import { useAppSelector } from "@hook/redux";
+import { Avatar, Dropdown, Menu } from "antd";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const menuItem = [
@@ -44,14 +44,14 @@ export const NavProfile = () => {
     location.reload();
   };
 
-  const profileImg = user.photo || "/img/avatars/thumb-1.jpg";
+  const profileImg = randomImage();
   const profileMenu = (
     <div className="nav-profile nav-dropdown">
       <div className="nav-profile-header">
         <div className="d-flex">
           <Avatar size={45} src={profileImg} />
           <div className="pl-3">
-            <h4 className="mb-0">{user.fname + " " + user.lname}</h4>
+            <h4 className="mb-0">{user.fullName}</h4>
             <span>Admin</span>
           </div>
         </div>

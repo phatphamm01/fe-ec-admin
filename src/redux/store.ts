@@ -1,8 +1,7 @@
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import createSagaMiddleware from "redux-saga";
-
 import rootSagas from "./sagas";
 import rootReducers from "./slices";
 
@@ -11,7 +10,7 @@ const sagaMiddleware = createSagaMiddleware();
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["themeReducers", "userReducers"],
+  whitelist: ["themeReducers", "authReducers"],
 };
 
 export const store = configureStore({

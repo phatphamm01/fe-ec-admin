@@ -1,18 +1,10 @@
 import isNullObject from "@common/function/isNullObject";
 import { useAppSelector } from "@hook/redux";
-import React, { Fragment } from "react";
-
-import {
-  Route,
-  BrowserRouter,
-  Navigate,
-  Routes,
-  useParams,
-} from "react-router-dom";
+import React from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { AUTH_PREFIX_PATH } from "src/config/app";
 import AppLayout from "src/layouts/AppLayout";
 import AuthLayout from "src/layouts/AuthLayout";
-
 import tw, { styled } from "twin.macro";
 
 const PageContainer = styled.div`
@@ -22,7 +14,7 @@ const PageContainer = styled.div`
 interface IPage {}
 
 const Pages: React.FC<IPage> = () => {
-  const { user } = useAppSelector((state) => state.userReducers);
+  const { auth } = useAppSelector((state) => state.authReducers);
   return (
     <PageContainer>
       <Routes>
@@ -31,7 +23,7 @@ const Pages: React.FC<IPage> = () => {
         <Route
           path="/*"
           element={
-            <RouteInterceptor isAuthenticated={!isNullObject(user)}>
+            <RouteInterceptor isAuthenticated={!isNullObject(auth)}>
               <AppLayout />
             </RouteInterceptor>
           }

@@ -1,21 +1,11 @@
-import React from "react";
-import { Route, Routes, Outlet, useParams } from "react-router-dom";
-import tw, { styled } from "twin.macro";
 import Auth from "@pages/auth";
-import LoginTwo from "@pages/auth/Login";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import tw, { styled } from "twin.macro";
 
 const AuthContainer = styled.div`
   ${tw``}
 `;
-
-const Auths = () => {
-  return (
-    <AuthContainer>
-      12332
-      <Outlet />
-    </AuthContainer>
-  );
-};
 
 const AuthLayout = () => {
   return (

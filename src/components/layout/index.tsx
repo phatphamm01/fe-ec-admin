@@ -1,11 +1,9 @@
+import { Layout as LayoutAntd } from "antd";
 import React from "react";
 import tw, { styled } from "twin.macro";
-import { Layout as LayoutAntd } from "antd";
-import Header from "./Header";
-import Breadcrumb from "./Breadcrumb";
-import Sider from "./Sider";
 import Footer from "./Footer";
-import ProductList from "@components/ProductList";
+import Header from "./Header";
+import Sider from "./Sider";
 
 const { Content } = LayoutAntd;
 const LayoutContainer = styled.div`

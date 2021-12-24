@@ -1,17 +1,17 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import billReducers from "./bill";
-import commonReducers from "./common";
+import authReducers from "./auth";
 import dashboardReducers from "./dashboard";
-import productReducers from "./product";
+import optionReducers from "./option";
+import passbookReducers from "./passbook";
 import themeReducers from "./theme";
 import userReducers from "./user";
 
 const rootReducers = combineReducers({
   themeReducers,
-  commonReducers,
-  productReducers,
   userReducers,
-  billReducers,
+  passbookReducers,
+  authReducers,
+  optionReducers,
   dashboardReducers,
 });
 
