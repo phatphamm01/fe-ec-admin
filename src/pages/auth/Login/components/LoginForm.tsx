@@ -15,8 +15,8 @@ export const LoginForm = (props: any) => {
   let navigate = useNavigate();
 
   const initialCredential = {
-    email: "minhphatdev@gmail.com",
-    password: ".Phat2001",
+    email: "",
+    password: "",
   };
 
   const onLogin = async (values: any) => {
@@ -49,15 +49,6 @@ export const LoginForm = (props: any) => {
 
   return (
     <>
-      {/* <motion.div
-        initial={{ opacity: 0, marginBottom: 0 }}
-        animate={{
-          opacity: showMessage ? 1 : 0,
-          marginBottom: showMessage ? 20 : 0,
-        }}
-      >
-        <Alert type="error" showIcon message={message}></Alert>
-      </motion.div> */}
       <Form
         layout="vertical"
         name="login-form"
@@ -94,7 +85,7 @@ export const LoginForm = (props: any) => {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" block loading={loading}>
-            Sign In
+            Đăng nhập
           </Button>
         </Form.Item>
       </Form>
