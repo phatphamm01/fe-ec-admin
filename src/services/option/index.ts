@@ -3,7 +3,9 @@ import AxiosService from "@common/utils/axios";
 const url = {
   getCurrentOptions: (payload: any) => "option/getcurrentoption",
   getOptionsByTime: (payload: any) =>
-    `option/getoptionbydatetime/${payload.month}-${payload.date}-${payload.year}`,
+    `option/getoptionbydatetime/${payload.month + 1}-${payload.date}-${
+      payload.year
+    }`,
   editOption: (payload: any) => `option/updateOption/${payload.id}`,
   addOption: (payload: any) => "option/saveOption",
 };
