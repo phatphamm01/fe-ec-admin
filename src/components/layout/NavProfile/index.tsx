@@ -36,7 +36,7 @@ const menuItem = [
 ];
 
 export const NavProfile = () => {
-  const { user } = useAppSelector((state) => state.userReducers);
+  const { auth } = useAppSelector((state) => state.authReducers);
   const navigate = useNavigate();
 
   const signOut = () => {
@@ -51,7 +51,7 @@ export const NavProfile = () => {
         <div className="d-flex">
           <Avatar size={45} src={profileImg} />
           <div className="pl-3">
-            <h4 className="mb-0">{user.fullName}</h4>
+            <h4 className="mb-0">{auth.fullName}</h4>
             <span>Admin</span>
           </div>
         </div>
