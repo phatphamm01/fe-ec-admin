@@ -1,11 +1,17 @@
 /* eslint-disable no-unused-vars */
-import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  EyeOutlined,
+  SearchOutlined,
+  StarFilled,
+  StarOutlined,
+} from "@ant-design/icons";
 import checkNullObject from "@common/function/checkNullObject";
 import randomImage from "@common/utils/image/randomImage";
 import EllipsisDropdown from "@components/shared-components/EllipsisDropdown";
 import Flex from "@components/shared-components/Flex";
 import { useAppDispatch, useAppSelector } from "@hook/redux";
 import { getAllUser } from "@redux/slices/user";
+import fetchUser from "@services/user";
 import { Avatar, Card, Input, Menu, message, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
@@ -16,7 +22,8 @@ import { IUser } from "../../redux/types/user/index";
 const User = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { allUser, user } = useAppSelector((state) => state.userReducers);
+  const { allUser } = useAppSelector((state) => state.userReducers);
+  const { auth } = useAppSelector((state) => state.authReducers);
 
   const [list, setList] = useState<any>();
 
@@ -32,15 +39,19 @@ const User = () => {
     dispatch(getAllUser());
   };
 
-  const handleRole = async (id: string, status: "ADMIN" | "USER") => {
-    if (id === user._id) {
+  const handleRole = async (id: string, status: "user" | "admin") => {
+    if (id === auth._id) {
       message.error(`You can't change your own role`);
       return;
     }
+
     try {
       let newList = list?.map((value: any) =>
         value._id === id ? { ...value, role: status } : value
       );
+
+      let payload = { userId: id, isAdmin: "user" ? false : true };
+      await fetchUser.updateRole(payload);
 
       setList(newList);
 
@@ -95,26 +106,26 @@ const User = () => {
       ),
       sorter: (a: any, b: any) => utils.antdTableSorter(a, b, "currentMoney"),
     },
-    // {
-    //   title: "Admin",
-    //   dataIndex: "role",
-    //   render: (_: any, record: any) => (
-    //     <Flex alignItems="center">
-    //       {record.role === "ADMIN" ? (
-    //         <StarFilled
-    //           onClick={() => handleRole(record._id, "USER")}
-    //           style={{ fontSize: "20px", color: "red" }}
-    //         />
-    //       ) : (
-    //         <StarOutlined
-    //           onClick={() => handleRole(record._id, "ADMIN")}
-    //           style={{ fontSize: "20px" }}
-    //         />
-    //       )}
-    //     </Flex>
-    //   ),
-    //   sorter: (a: any, b: any) => utils.antdTableSorter(a, b, "isFeatured"),
-    // },
+    {
+      title: "Admin",
+      dataIndex: "role",
+      render: (_: any, record: any) => (
+        <Flex alignItems="center">
+          {record.role === "admin" ? (
+            <StarFilled
+              onClick={() => handleRole(record._id, "user")}
+              style={{ fontSize: "20px", color: "red" }}
+            />
+          ) : (
+            <StarOutlined
+              onClick={() => handleRole(record._id, "admin")}
+              style={{ fontSize: "20px" }}
+            />
+          )}
+        </Flex>
+      ),
+      sorter: (a: any, b: any) => utils.antdTableSorter(a, b, "isFeatured"),
+    },
     {
       title: "Hành động",
       dataIndex: "actions",
