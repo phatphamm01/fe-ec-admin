@@ -61,15 +61,18 @@ export const LoginForm = (props: any) => {
           rules={[
             {
               required: true,
-              message: "Please input your email",
+              message: "Vui lòng nhập email",
             },
             {
               type: "email",
-              message: "Please enter a validate email!",
+              message: "Vui lòng nhập đúng email",
             },
           ]}
         >
-          <Input prefix={<MailOutlined className="text-primary" />} />
+          <Input
+            placeholder="Email"
+            prefix={<MailOutlined className="text-primary" />}
+          />
         </Form.Item>
         <Form.Item
           name="password"
@@ -77,11 +80,14 @@ export const LoginForm = (props: any) => {
           rules={[
             {
               required: true,
-              message: "Please input your password",
+              message: "Vui lòng nhập mật khẩu",
             },
           ]}
         >
-          <Input.Password prefix={<LockOutlined className="text-primary" />} />
+          <Input.Password
+            placeholder="Mật khẩu"
+            prefix={<LockOutlined className="text-primary" />}
+          />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" block loading={loading}>
