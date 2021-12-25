@@ -14,7 +14,7 @@ export type Method =
   | "link"
   | "unlink";
 
-axios.defaults.baseURL = "https://server-one-kappa.vercel.app";
+axios.defaults.baseURL = "https://server-delta-one.vercel.app";
 
 class AxiosService {
   #instance: AxiosInstance;
@@ -46,9 +46,10 @@ class AxiosService {
         return response;
       },
       (error: AxiosError) => {
-        console.log(error.message);
-
-        if (error.message === "Request failed with status code 401") {
+        if (
+          error.message === "Request failed with status code 401" &&
+          error.response?.data?.message !== "Please Check Account"
+        ) {
           localStorage.clear();
           location.reload();
         }

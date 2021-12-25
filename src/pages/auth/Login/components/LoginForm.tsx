@@ -4,7 +4,7 @@ import StorageToken from "@common/utils/storage";
 import { useAppDispatch, useAppSelector } from "@hook/redux";
 import { getAuthSuccess } from "@redux/slices/auth";
 import fetchAuth from "@services/auth";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -25,6 +25,7 @@ export const LoginForm = (props: any) => {
       let result = await fetchAuth.login(values);
 
       if (typeof result === "string") {
+        message.error(result);
         return;
       }
 
@@ -35,7 +36,8 @@ export const LoginForm = (props: any) => {
       dispatch(getAuthSuccess(user));
 
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
+      message.error(error?.message);
     } finally {
       setLoading(false);
     }
