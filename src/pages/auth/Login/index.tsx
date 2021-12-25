@@ -13,6 +13,15 @@ const LoginTwo = (props: any) => {
   return (
     <div className={`h-100 ${true ? "bg-white" : ""}`}>
       <Row justify="center" className="align-items-stretch h-100">
+        <Col xs={0} sm={0} md={0} lg={8}>
+          <div className="h-100" style={backgroundStyle}>
+            <img
+              tw="w-full h-full block object-cover"
+              src="https://cdn.dribbble.com/users/949981/screenshots/16123153/media/1063bc72b4c7d1b694aeb93e5a300a2f.png?compress=1&resize=700x900"
+              alt=""
+            />
+          </div>
+        </Col>
         <Col xs={20} sm={20} md={24} lg={16}>
           <div className="container d-flex flex-column justify-content-center h-100">
             <Row justify="center">
@@ -23,15 +32,6 @@ const LoginTwo = (props: any) => {
                 </div>
               </Col>
             </Row>
-          </div>
-        </Col>
-        <Col xs={0} sm={0} md={0} lg={8}>
-          <div className="h-100" style={backgroundStyle}>
-            <img
-              tw="w-full h-full block object-cover"
-              src="https://cdn.dribbble.com/users/59947/screenshots/15874343/media/afe65895379ec561bbdd25a79e7102ec.jpg?compress=1&resize=700x900"
-              alt=""
-            />
           </div>
         </Col>
       </Row>

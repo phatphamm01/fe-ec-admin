@@ -8,7 +8,9 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
 import utils from "src/utils";
-import TableDetail from "./Table";
+import checkNullObject from "../../common/function/checkNullObject";
+import TableDetail from "./TableDetail";
+import TableWithdraw from "./TableWithdraw/index";
 
 interface IPassbookList {
   dataList: any;
@@ -32,6 +34,13 @@ const Passbook: React.FC<IPassbookList> = ({ dataList, keyId, titleId }) => {
     return data;
   };
 
+  const getWithdrawMoneyApi = async (passbookid: string) => {
+    const data = await fetchPassbook.getDetail({
+      id: passbookid,
+    });
+    return data;
+  };
+
   const onSearch = (e: any) => {
     const value = e.currentTarget.value;
     const searchArray = e.currentTarget.value ? list : dataList;
@@ -41,18 +50,35 @@ const Passbook: React.FC<IPassbookList> = ({ dataList, keyId, titleId }) => {
 
   const viewDetails = async (row: IPassbook) => {
     try {
-      const result = await getDetailPassbookApi(row._id!);
+      const resultDetail = await getDetailPassbookApi(row._id!);
+      const resultWithdraw = await getWithdrawMoneyApi(row._id!);
 
-      if (result.success === false) {
-        message.error(result.message);
+      if (resultDetail.success === false) {
+        message.error(resultDetail.message);
         return;
       }
+      if (resultWithdraw.success === false) {
+        message.error(resultWithdraw.message);
+        return;
+      }
+      console.log(resultDetail);
 
       Modal.info({
-        width: "500px",
+        width: "870px",
         title: "Chi tiết sổ tiết kiệm",
 
-        content: <TableDetail data={result} />,
+        content: (
+          <div>
+            <div tw="mb-6">
+              {!checkNullObject(resultWithdraw) && (
+                <TableWithdraw data={resultWithdraw} />
+              )}
+            </div>
+            {!checkNullObject(resultDetail) && (
+              <TableDetail data={resultDetail} />
+            )}
+          </div>
+        ),
         onOk() {},
       });
     } catch (error) {}
@@ -127,7 +153,7 @@ const Passbook: React.FC<IPassbookList> = ({ dataList, keyId, titleId }) => {
   const dropdownMenu = (row: IPassbook) => {
     return (
       <Menu>
-        <Menu.Item onClick={() => viewDetails(row)}>
+        <Menu.Item key="1" onClick={() => viewDetails(row)}>
           <Flex alignItems="center">
             <EyeOutlined />
             <span className="ml-2">Xem chi tiết</span>

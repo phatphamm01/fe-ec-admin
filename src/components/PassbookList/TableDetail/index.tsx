@@ -37,7 +37,7 @@ interface ITable {
   data: any;
 }
 
-const Table: React.FC<ITable> = ({ data }) => {
+const TableDetail: React.FC<ITable> = ({ data }) => {
   console.log(data);
 
   return (
@@ -100,4 +100,4 @@ const Table: React.FC<ITable> = ({ data }) => {
   );
 };
 
-export default Table;
+export default TableDetail;

@@ -6,6 +6,7 @@ const url = {
   getPassbookById: ({ _id }: any) => `passbook/check/${_id}`,
   checkInformationpassbook: (payload: any) =>
     `passbook/checkInformationpassbook/${payload.passbookid}`,
+  getDetail: (payload: any) => `passbook/check/${payload.id}`,
 };
 
 const fetchPassbook = {
@@ -25,6 +26,10 @@ const fetchPassbook = {
     const response = await AxiosService.get(
       url.checkInformationpassbook(payload)
     );
+    return response;
+  },
+  async getDetail(payload: { id: string }) {
+    const response = await AxiosService.get(url.getDetail(payload));
     return response;
   },
 };

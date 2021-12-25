@@ -1,10 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {
-  EyeOutlined,
-  SearchOutlined,
-  StarFilled,
-  StarOutlined,
-} from "@ant-design/icons";
+import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import checkNullObject from "@common/function/checkNullObject";
 import randomImage from "@common/utils/image/randomImage";
 import EllipsisDropdown from "@components/shared-components/EllipsisDropdown";
@@ -100,26 +95,26 @@ const User = () => {
       ),
       sorter: (a: any, b: any) => utils.antdTableSorter(a, b, "currentMoney"),
     },
-    {
-      title: "Admin",
-      dataIndex: "role",
-      render: (_: any, record: any) => (
-        <Flex alignItems="center">
-          {record.role === "ADMIN" ? (
-            <StarFilled
-              onClick={() => handleRole(record._id, "USER")}
-              style={{ fontSize: "20px", color: "red" }}
-            />
-          ) : (
-            <StarOutlined
-              onClick={() => handleRole(record._id, "ADMIN")}
-              style={{ fontSize: "20px" }}
-            />
-          )}
-        </Flex>
-      ),
-      sorter: (a: any, b: any) => utils.antdTableSorter(a, b, "isFeatured"),
-    },
+    // {
+    //   title: "Admin",
+    //   dataIndex: "role",
+    //   render: (_: any, record: any) => (
+    //     <Flex alignItems="center">
+    //       {record.role === "ADMIN" ? (
+    //         <StarFilled
+    //           onClick={() => handleRole(record._id, "USER")}
+    //           style={{ fontSize: "20px", color: "red" }}
+    //         />
+    //       ) : (
+    //         <StarOutlined
+    //           onClick={() => handleRole(record._id, "ADMIN")}
+    //           style={{ fontSize: "20px" }}
+    //         />
+    //       )}
+    //     </Flex>
+    //   ),
+    //   sorter: (a: any, b: any) => utils.antdTableSorter(a, b, "isFeatured"),
+    // },
     {
       title: "Hành động",
       dataIndex: "actions",
